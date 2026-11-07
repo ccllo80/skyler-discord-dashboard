@@ -82,7 +82,10 @@ function SetupPage() {
                 return (
                   <li key={name} className="rounded-lg border border-border/70 bg-muted/40 p-3.5">
                     <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 sm:flex sm:items-center sm:justify-between">
-                      <code dir="ltr" className="min-w-0 text-start font-mono text-xs font-semibold leading-5 text-foreground">
+                      <code
+                        dir="ltr"
+                        className="min-w-0 text-start font-mono text-xs font-semibold leading-5 text-foreground"
+                      >
                         {name}
                       </code>
                       <span

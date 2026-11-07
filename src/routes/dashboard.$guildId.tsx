@@ -8,15 +8,17 @@ import { getGuildAccess } from "@/lib/api/auth.functions";
 
 // Access to a guild is re-checked server-side on every load.
 export const Route = createFileRoute("/dashboard/$guildId")({
-  head: () => ({ meta: [
-    { title: "إدارة الخادم — SKYLER" },
-    { name: "description", content: "إدارة خادم ديسكورد وأنظمته في SKYLER." },
-    { property: "og:title", content: "إدارة الخادم — SKYLER" },
-    { property: "og:description", content: "لوحة أنظمة خادم ديسكورد في SKYLER." },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
-    { name: "robots", content: "noindex" },
-  ] }),
+  head: () => ({
+    meta: [
+      { title: "إدارة الخادم — SKYLER" },
+      { name: "description", content: "إدارة خادم ديسكورد وأنظمته في SKYLER." },
+      { property: "og:title", content: "إدارة الخادم — SKYLER" },
+      { property: "og:description", content: "لوحة أنظمة خادم ديسكورد في SKYLER." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   loader: ({ params }) => getGuildAccess({ data: { guildId: params.guildId } }),
   pendingComponent: () => <PendingState />,
   errorComponent: () => (
@@ -56,7 +58,9 @@ function GuildLayout() {
           جميع الخوادم
         </Link>
         <div className="mb-4 rounded-xl border border-border bg-panel p-4">
-          <p dir="auto" className="font-semibold">{guild.name}</p>
+          <p dir="auto" className="font-semibold">
+            {guild.name}
+          </p>
           <div className="mt-2">
             <BotStatusBadge status={guild.botStatus} />
           </div>

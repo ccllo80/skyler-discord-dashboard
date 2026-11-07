@@ -33,7 +33,10 @@ function DashboardLayout() {
       <SiteHeader
         right={
           <div className="flex min-w-0 items-center gap-3">
-            <span dir="auto" className="hidden max-w-40 truncate text-sm text-muted-foreground md:inline">
+            <span
+              dir="auto"
+              className="hidden max-w-40 truncate text-sm text-muted-foreground md:inline"
+            >
               {user.globalName ?? user.username}
             </span>
             <form method="post" action="/api/public/auth/logout">

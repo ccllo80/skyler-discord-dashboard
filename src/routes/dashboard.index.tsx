@@ -6,15 +6,20 @@ import { guildIconUrl } from "@/lib/auth-types";
 import { getManageableGuilds } from "@/lib/api/auth.functions";
 
 export const Route = createFileRoute("/dashboard/")({
-  head: () => ({ meta: [
-    { title: "اختيار الخادم — SKYLER" },
-    { name: "description", content: "اختر أحد خوادم ديسكورد التي تملك صلاحية إدارتها في SKYLER." },
-    { property: "og:title", content: "اختيار الخادم — SKYLER" },
-    { property: "og:description", content: "خوادم ديسكورد القابلة للإدارة في SKYLER." },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
-    { name: "robots", content: "noindex" },
-  ] }),
+  head: () => ({
+    meta: [
+      { title: "اختيار الخادم — SKYLER" },
+      {
+        name: "description",
+        content: "اختر أحد خوادم ديسكورد التي تملك صلاحية إدارتها في SKYLER.",
+      },
+      { property: "og:title", content: "اختيار الخادم — SKYLER" },
+      { property: "og:description", content: "خوادم ديسكورد القابلة للإدارة في SKYLER." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   loader: () => getManageableGuilds(),
   pendingComponent: () => <PendingState label="جارٍ تحميل الخوادم…" />,
   errorComponent: () => (
@@ -48,14 +53,23 @@ function ServerPicker() {
                   className="group grid h-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-panel p-4 transition-[transform,border-color] hover:border-glow/30 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:gap-4"
                 >
                   {icon ? (
-                    <img src={icon} alt="" width={48} height={48} className="size-12 shrink-0 rounded-xl object-cover" loading="lazy" />
+                    <img
+                      src={icon}
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="size-12 shrink-0 rounded-xl object-cover"
+                      loading="lazy"
+                    />
                   ) : (
                     <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-muted font-bold">
                       {g.name.slice(0, 1)}
                     </span>
                   )}
                   <div className="min-w-0 flex-1">
-                    <p dir="auto" className="font-semibold">{g.name}</p>
+                    <p dir="auto" className="font-semibold">
+                      {g.name}
+                    </p>
                     <div className="mt-1.5">
                       <BotStatusBadge status={g.botStatus} />
                     </div>

@@ -3,15 +3,17 @@ import { SectionTitle, SoonBadge } from "@/components/dashboard/dashboard-ui";
 import { SYSTEMS } from "@/lib/systems";
 
 export const Route = createFileRoute("/dashboard/$guildId/")({
-  head: () => ({ meta: [
-    { title: "أنظمة الخادم — SKYLER" },
-    { name: "description", content: "نظرة عامة على أنظمة SKYLER الثمانية قيد التطوير." },
-    { property: "og:title", content: "أنظمة الخادم — SKYLER" },
-    { property: "og:description", content: "نظرة عامة على أنظمة SKYLER قيد التطوير." },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
-    { name: "robots", content: "noindex" },
-  ] }),
+  head: () => ({
+    meta: [
+      { title: "أنظمة الخادم — SKYLER" },
+      { name: "description", content: "نظرة عامة على أنظمة SKYLER الثمانية قيد التطوير." },
+      { property: "og:title", content: "أنظمة الخادم — SKYLER" },
+      { property: "og:description", content: "نظرة عامة على أنظمة SKYLER قيد التطوير." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: Overview,
 });
 

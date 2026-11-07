@@ -88,13 +88,28 @@ export function SiteHeader({ right }: { right?: ReactNode }) {
           aria-label="التنقل على الهاتف"
           className="grid grid-cols-3 gap-1 border-t border-border/60 px-4 py-2 text-sm md:hidden"
         >
-          <Button asChild variant="ghost" className="min-h-11 px-2" onClick={() => setMenuOpen(false)}>
+          <Button
+            asChild
+            variant="ghost"
+            className="min-h-11 px-2"
+            onClick={() => setMenuOpen(false)}
+          >
             <a href="/#features">المزايا</a>
           </Button>
-          <Button asChild variant="ghost" className="min-h-11 px-2" onClick={() => setMenuOpen(false)}>
+          <Button
+            asChild
+            variant="ghost"
+            className="min-h-11 px-2"
+            onClick={() => setMenuOpen(false)}
+          >
             <a href="/#systems">الأنظمة</a>
           </Button>
-          <Button asChild variant="ghost" className="min-h-11 px-2" onClick={() => setMenuOpen(false)}>
+          <Button
+            asChild
+            variant="ghost"
+            className="min-h-11 px-2"
+            onClick={() => setMenuOpen(false)}
+          >
             <Link to="/dashboard">لوحة التحكم</Link>
           </Button>
         </nav>
@@ -118,17 +133,26 @@ export function SiteFooter() {
           <p className="font-semibold text-foreground">الموقع</p>
           <ul className="space-y-2 text-muted-foreground">
             <li>
-              <Link to="/" className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0">
+              <Link
+                to="/"
+                className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0"
+              >
                 الرئيسية
               </Link>
             </li>
             <li>
-              <a href="/#systems" className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0">
+              <a
+                href="/#systems"
+                className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0"
+              >
                 الأنظمة
               </a>
             </li>
             <li>
-              <Link to="/dashboard" className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0">
+              <Link
+                to="/dashboard"
+                className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0"
+              >
                 لوحة التحكم
               </Link>
             </li>
@@ -194,7 +218,9 @@ export function StatePanel({
       <h1 className="text-xl font-bold text-foreground sm:text-2xl">{title}</h1>
       {children && <div className="mt-3 text-sm leading-7 text-muted-foreground">{children}</div>}
       {actions && (
-        <div className="mt-7 flex min-w-0 flex-col gap-3 [&_a]:min-h-11 [&_a]:whitespace-normal [&_button]:min-h-11 sm:flex-row sm:flex-wrap sm:justify-center">{actions}</div>
+        <div className="mt-7 flex min-w-0 flex-col gap-3 [&_a]:min-h-11 [&_a]:whitespace-normal [&_button]:min-h-11 sm:flex-row sm:flex-wrap sm:justify-center">
+          {actions}
+        </div>
       )}
     </div>
   );
