@@ -9,7 +9,11 @@ export const Route = createFileRoute("/api/public/auth/logout")({
         const origin = request.headers.get("origin");
         const site = request.headers.get("sec-fetch-site");
         const sameOrigin = origin ? origin === new URL(request.url).origin : site === "same-origin";
-        if (!sameOrigin) return new Response("Forbidden", { status: 403 });
+        if (!sameOrigin)
+          return new Response("طلب غير مسموح به.", {
+            status: 403,
+            headers: { "content-type": "text/plain; charset=utf-8" },
+          });
         return s.redirectTo("/", [s.cookie(s.SESSION_COOKIE, "", 0)], 303);
       },
     },
