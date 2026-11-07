@@ -27,9 +27,7 @@ export const getCurrentUser = createServerFn({ method: "GET" }).handler(
 );
 
 export const getConfigStatus = createServerFn({ method: "GET" }).handler(async () => {
-  const { getDiscordConfig, DISCORD_REQUIRED_ENV_VARS } = await import(
-    "@/server/discord/config"
-  );
+  const { getDiscordConfig, DISCORD_REQUIRED_ENV_VARS } = await import("@/server/discord/config");
   const cfg = getDiscordConfig();
   return {
     configured: cfg.ok,

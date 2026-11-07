@@ -87,7 +87,9 @@ function SetupPage() {
                       </code>
                       <span
                         className={`rounded-full px-2 py-0.5 text-[11px] ${
-                          isMissing ? "bg-destructive/10 text-destructive" : "bg-success/10 text-success"
+                          isMissing
+                            ? "bg-destructive/10 text-destructive"
+                            : "bg-success/10 text-success"
                         }`}
                       >
                         {isMissing ? "مطلوب" : "مُضاف"}
