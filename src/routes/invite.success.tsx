@@ -21,8 +21,16 @@ export const Route = createFileRoute("/invite/success")({
   }),
   component: () => (
     <PageShell>
-      <StatePanel tone="success" icon={<CircleCheck />} title="تمت إضافة البوت بنجاح"
-        actions={<Button asChild variant="hero" size="lg" className="min-w-40"><Link to="/">متابعة</Link></Button>}>
+      <StatePanel
+        tone="success"
+        icon={<CircleCheck />}
+        title="تمت إضافة البوت بنجاح"
+        actions={
+          <Button asChild variant="hero" size="lg" className="min-w-40">
+            <Link to="/">متابعة</Link>
+          </Button>
+        }
+      >
         أصبح SKYLER الآن ضمن خادمك. يمكنك العودة إلى الصفحة الرئيسية للمتابعة.
       </StatePanel>
     </PageShell>

@@ -11,7 +11,10 @@ async function loadSession() {
   const { unsealSession, readCookie, SESSION_COOKIE } = await import("@/server/discord/session");
   const cfg = getDiscordConfig();
   if (!cfg.ok) return { cfg, session: null };
-  const session = await unsealSession(readCookie(getRequest(), SESSION_COOKIE), cfg.config.sessionSecret);
+  const session = await unsealSession(
+    readCookie(getRequest(), SESSION_COOKIE),
+    cfg.config.sessionSecret,
+  );
   return { cfg, session };
 }
 
@@ -34,7 +37,11 @@ export const consumeInviteSuccess = createServerFn({ method: "GET" }).handler(as
   const s = await import("@/server/discord/session");
   const cfg = getDiscordConfig();
   if (!cfg.ok) return { ok: false };
-  const proof = await s.unseal<{ exp: number }>(s.readCookie(getRequest(), s.INVITE_OK_COOKIE), cfg.config.sessionSecret, "invite_ok");
+  const proof = await s.unseal<{ exp: number }>(
+    s.readCookie(getRequest(), s.INVITE_OK_COOKIE),
+    cfg.config.sessionSecret,
+    "invite_ok",
+  );
   deleteCookie(s.INVITE_OK_COOKIE, { path: "/", httpOnly: true, secure: true, sameSite: "lax" });
   return { ok: !!proof && typeof proof.exp === "number" && proof.exp > Date.now() };
 });
@@ -42,7 +49,8 @@ export const consumeInviteSuccess = createServerFn({ method: "GET" }).handler(as
 async function manageableGuilds(): Promise<GuildSummary[]> {
   const { cfg, session } = await loadSession();
   if (!cfg.ok || !session) throw new Error("UNAUTHENTICATED");
-  const { fetchUserGuilds, fetchBotGuildIds, DiscordApiError } = await import("@/server/discord/oauth");
+  const { fetchUserGuilds, fetchBotGuildIds, DiscordApiError } =
+    await import("@/server/discord/oauth");
   let guilds;
   try {
     guilds = await fetchUserGuilds(session.accessToken);
@@ -53,7 +61,8 @@ async function manageableGuilds(): Promise<GuildSummary[]> {
   const manageable = guilds.filter(canManageGuild);
   const botIds = manageable.length ? await fetchBotGuildIds(cfg.config.botToken) : null;
   return manageable.map((g) => {
-    const botStatus: BotStatus = botIds === null ? "unknown" : botIds.has(g.id) ? "present" : "absent";
+    const botStatus: BotStatus =
+      botIds === null ? "unknown" : botIds.has(g.id) ? "present" : "absent";
     return { id: g.id, name: g.name, icon: g.icon, botStatus };
   });
 }

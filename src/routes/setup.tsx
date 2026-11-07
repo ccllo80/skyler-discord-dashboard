@@ -31,16 +31,28 @@ function SetupPage() {
         tone="warning"
         icon={<Settings2 />}
         title={configured ? "اكتمل الإعداد" : "الإعداد مطلوب"}
-        actions={<Button asChild variant="heroOutline"><Link to="/">العودة إلى الرئيسية</Link></Button>}
+        actions={
+          <Button asChild variant="heroOutline">
+            <Link to="/">العودة إلى الرئيسية</Link>
+          </Button>
+        }
       >
         {configured ? (
           <p>اكتمل إعداد ربط ديسكورد، ويمكنك الآن المتابعة من الصفحة الرئيسية.</p>
         ) : (
           <>
-            <p>لا يمكن بدء «{label}» حالياً، لأن إعداد ربط ديسكورد على الخادم لم يكتمل بعد. يُرجى من مسؤول الموقع إضافة القيم التالية:</p>
+            <p>
+              لا يمكن بدء «{label}» حالياً، لأن إعداد ربط ديسكورد على الخادم لم يكتمل بعد. يُرجى من
+              مسؤول الموقع إضافة القيم التالية:
+            </p>
             <ul dir="ltr" className="mt-4 space-y-1.5 text-left">
               {missing.map((m) => (
-                <li key={m} className="rounded-md bg-muted px-3 py-1.5 font-mono text-xs text-foreground">{m}</li>
+                <li
+                  key={m}
+                  className="rounded-md bg-muted px-3 py-1.5 font-mono text-xs text-foreground"
+                >
+                  {m}
+                </li>
               ))}
             </ul>
           </>

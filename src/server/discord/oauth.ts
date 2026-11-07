@@ -7,7 +7,10 @@ const PAGE = 200;
 const MAX_PAGES = 1000;
 
 export class DiscordApiError extends Error {
-  constructor(public status: number, message: string) {
+  constructor(
+    public status: number,
+    message: string,
+  ) {
     super(message);
   }
 }
@@ -37,7 +40,11 @@ export function inviteAuthorizeUrl(c: DiscordConfig, state: string) {
 }
 
 /** fetch with one bounded retry on 429 (Discord rate limit). */
-async function discordFetch(url: string, init: RequestInit, fetchImpl: typeof fetch = fetch): Promise<Response> {
+async function discordFetch(
+  url: string,
+  init: RequestInit,
+  fetchImpl: typeof fetch = fetch,
+): Promise<Response> {
   for (let attempt = 0; attempt < 3; attempt++) {
     const res = await fetchImpl(url, init);
     if (res.status !== 429) return res;
@@ -63,15 +70,29 @@ export async function exchangeCode(c: DiscordConfig, code: string, redirectUri: 
   });
   if (!res.ok) throw new DiscordApiError(res.status, "token exchange failed");
   const json = (await res.json()) as { access_token?: string; expires_in?: number; scope?: string };
-  if (!json.access_token || typeof json.expires_in !== "number") throw new DiscordApiError(502, "malformed token response");
+  if (!json.access_token || typeof json.expires_in !== "number")
+    throw new DiscordApiError(502, "malformed token response");
   return { access_token: json.access_token, expires_in: json.expires_in, scope: json.scope ?? "" };
 }
 
-export interface DiscordUser { id: string; username: string; global_name: string | null; avatar: string | null }
-export interface DiscordPartialGuild { id: string; name: string; icon: string | null; owner: boolean; permissions: string }
+export interface DiscordUser {
+  id: string;
+  username: string;
+  global_name: string | null;
+  avatar: string | null;
+}
+export interface DiscordPartialGuild {
+  id: string;
+  name: string;
+  icon: string | null;
+  owner: boolean;
+  permissions: string;
+}
 
 export async function fetchUser(token: string) {
-  const res = await discordFetch(`${API}/users/@me`, { headers: { authorization: `Bearer ${token}` } });
+  const res = await discordFetch(`${API}/users/@me`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
   if (!res.ok) throw new DiscordApiError(res.status, "user fetch failed");
   return (await res.json()) as DiscordUser;
 }
@@ -84,7 +105,11 @@ export async function fetchAllGuilds<T extends { id: string }>(
   const all: T[] = [];
   let after = "0";
   for (let i = 0; i < MAX_PAGES; i++) {
-    const res = await discordFetch(`${API}/users/@me/guilds?limit=${PAGE}&after=${after}`, { headers: { authorization } }, fetchImpl);
+    const res = await discordFetch(
+      `${API}/users/@me/guilds?limit=${PAGE}&after=${after}`,
+      { headers: { authorization } },
+      fetchImpl,
+    );
     if (!res.ok) throw new DiscordApiError(res.status, "guilds fetch failed");
     const page = (await res.json()) as T[];
     if (!Array.isArray(page)) throw new DiscordApiError(502, "malformed guilds response");

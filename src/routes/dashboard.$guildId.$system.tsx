@@ -24,12 +24,15 @@ function SystemPage() {
   return (
     <div>
       <div className="mb-2 flex items-center gap-3">
-        <span className="grid size-10 place-items-center rounded-xl bg-muted"><Icon className="size-5" aria-hidden /></span>
+        <span className="grid size-10 place-items-center rounded-xl bg-muted">
+          <Icon className="size-5" aria-hidden />
+        </span>
         <SoonBadge />
       </div>
       <SectionTitle title={system.name}>{system.description}</SectionTitle>
       <StatePanel icon={<Hourglass />} title="هذا النظام قيد التطوير">
-        لم تُفعَّل إعدادات «{system.name}» بعد. ستتوفر هنا عند اكتمال ربط لوحة التحكم مع البوت، ولن يُحفظ أي إعداد قبل ذلك.
+        لم تُفعَّل إعدادات «{system.name}» بعد. ستتوفر هنا عند اكتمال ربط لوحة التحكم مع البوت، ولن
+        يُحفظ أي إعداد قبل ذلك.
       </StatePanel>
     </div>
   );

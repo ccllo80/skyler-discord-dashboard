@@ -47,7 +47,11 @@ export async function seal(data: unknown, secret: string, purpose: string) {
   return `${b64url(iv)}.${b64url(new Uint8Array(ct))}`;
 }
 
-export async function unseal<T>(value: string | undefined, secret: string, purpose: string): Promise<T | null> {
+export async function unseal<T>(
+  value: string | undefined,
+  secret: string,
+  purpose: string,
+): Promise<T | null> {
   if (!value) return null;
   try {
     const [iv = "", ct = "", extra] = value.split(".");
@@ -67,9 +71,18 @@ export function sealSession(data: SessionData, secret: string) {
   return seal(data, secret, "session");
 }
 
-export async function unsealSession(value: string | undefined, secret: string): Promise<SessionData | null> {
+export async function unsealSession(
+  value: string | undefined,
+  secret: string,
+): Promise<SessionData | null> {
   const data = await unseal<SessionData>(value, secret, "session");
-  if (!data || typeof data.accessToken !== "string" || typeof data.expiresAt !== "number" || !data.user?.id) return null;
+  if (
+    !data ||
+    typeof data.accessToken !== "string" ||
+    typeof data.expiresAt !== "number" ||
+    !data.user?.id
+  )
+    return null;
   if (data.expiresAt <= Date.now()) return null;
   return data;
 }

@@ -24,7 +24,9 @@ function ServerPicker() {
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
       <SectionTitle title="اختر خادماً">تظهر هنا الخوادم التي تملك صلاحية إدارتها.</SectionTitle>
       {guilds.length === 0 ? (
-        <StatePanel icon={<ServerOff />} title="لا توجد خوادم">لا تملك صلاحية «إدارة الخادم» في أي خادم حالياً.</StatePanel>
+        <StatePanel icon={<ServerOff />} title="لا توجد خوادم">
+          لا تملك صلاحية «إدارة الخادم» في أي خادم حالياً.
+        </StatePanel>
       ) : (
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {guilds.map((g) => {
@@ -39,13 +41,20 @@ function ServerPicker() {
                   {icon ? (
                     <img src={icon} alt="" className="size-12 rounded-xl" loading="lazy" />
                   ) : (
-                    <span className="grid size-12 place-items-center rounded-xl bg-muted font-bold">{g.name.slice(0, 1)}</span>
+                    <span className="grid size-12 place-items-center rounded-xl bg-muted font-bold">
+                      {g.name.slice(0, 1)}
+                    </span>
                   )}
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-semibold">{g.name}</p>
-                    <div className="mt-1.5"><BotStatusBadge status={g.botStatus} /></div>
+                    <div className="mt-1.5">
+                      <BotStatusBadge status={g.botStatus} />
+                    </div>
                   </div>
-                  <ChevronLeft className="size-4 text-muted-foreground transition-transform group-hover:-translate-x-0.5" aria-hidden />
+                  <ChevronLeft
+                    className="size-4 text-muted-foreground transition-transform group-hover:-translate-x-0.5"
+                    aria-hidden
+                  />
                 </Link>
               </li>
             );

@@ -11,9 +11,7 @@ export interface DiscordConfig {
   apiBaseUrl: string | null;
 }
 
-export type ConfigResult =
-  | { ok: true; config: DiscordConfig }
-  | { ok: false; missing: string[] };
+export type ConfigResult = { ok: true; config: DiscordConfig } | { ok: false; missing: string[] };
 
 const REQUIRED = [
   "DISCORD_CLIENT_ID",
@@ -27,7 +25,11 @@ const REQUIRED = [
 export function getDiscordConfig(): ConfigResult {
   const env = process.env;
   const missing = REQUIRED.filter((k) => !env[k] || env[k]!.trim() === "");
-  if (env["SESSION_SECRET"] && env["SESSION_SECRET"].length < 32 && !missing.includes("SESSION_SECRET")) {
+  if (
+    env["SESSION_SECRET"] &&
+    env["SESSION_SECRET"].length < 32 &&
+    !missing.includes("SESSION_SECRET")
+  ) {
     missing.push("SESSION_SECRET");
   }
   if (missing.length) return { ok: false, missing: [...missing] };

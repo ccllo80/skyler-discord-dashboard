@@ -11,7 +11,9 @@ export const Route = createFileRoute("/api/public/auth/discord/invite")({
         const cfg = getDiscordConfig();
         if (!cfg.ok) return s.redirectTo("/setup?flow=invite");
         const state = s.randomState();
-        return s.redirectTo(inviteAuthorizeUrl(cfg.config, state), [s.stateCookie("invite", state)]);
+        return s.redirectTo(inviteAuthorizeUrl(cfg.config, state), [
+          s.stateCookie("invite", state),
+        ]);
       },
     },
   },

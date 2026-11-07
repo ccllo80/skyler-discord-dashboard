@@ -15,16 +15,25 @@ export const Route = createFileRoute("/api/public/auth/discord/invite-callback")
         const url = new URL(request.url);
         const state = url.searchParams.get("state");
         const expected = s.readCookie(request, s.STATE_COOKIES.invite);
-        if (!s.isValidState(expected, state)) return s.redirectTo("/auth/error?reason=state", [clearState]);
-        if (url.searchParams.get("error")) return s.redirectTo("/auth/error?reason=denied", [clearState]);
+        if (!s.isValidState(expected, state))
+          return s.redirectTo("/auth/error?reason=state", [clearState]);
+        if (url.searchParams.get("error"))
+          return s.redirectTo("/auth/error?reason=denied", [clearState]);
         const code = url.searchParams.get("code");
         if (!code) return s.redirectTo("/auth/error?reason=state", [clearState]);
 
         try {
           await exchangeCode(cfg.config, code, cfg.config.inviteRedirectUri);
           // Short-lived sealed proof consumed by /invite/success; the token itself is discarded.
-          const proof = await s.seal({ exp: Date.now() + 120_000 }, cfg.config.sessionSecret, "invite_ok");
-          return s.redirectTo("/invite/success", [clearState, s.cookie(s.INVITE_OK_COOKIE, proof, 120)]);
+          const proof = await s.seal(
+            { exp: Date.now() + 120_000 },
+            cfg.config.sessionSecret,
+            "invite_ok",
+          );
+          return s.redirectTo("/invite/success", [
+            clearState,
+            s.cookie(s.INVITE_OK_COOKIE, proof, 120),
+          ]);
         } catch (e) {
           console.error("invite callback failed", e instanceof Error ? e.message : e);
           return s.redirectTo("/auth/error?reason=exchange", [clearState]);
