@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Discord OAuth lives only in server routes under `src/routes/api/public/auth/*` and `src/server/discord/*`; the browser never sees codes, tokens or the client secret.
+- Sessions are AES-GCM encrypted HttpOnly cookies keyed by `SESSION_SECRET` (no database yet); OAuth `state` is validated via a short-lived HttpOnly cookie.
+- Env config is read only through `getDiscordConfig()` in `src/server/discord/config.ts`; missing config redirects to `/setup` instead of faking success.
+- Guild management permission is checked server-side (`canManageGuild`) on every dashboard load.
+- Dashboard systems are declared in `src/lib/systems.ts`; all stay "soon" until real bot API integration exists.
+- All user-facing copy is formal Arabic with RTL (`<html lang="ar" dir="rtl">`).
