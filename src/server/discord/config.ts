@@ -24,7 +24,7 @@ export const DISCORD_REQUIRED_ENV_VARS = [
 
 export function getDiscordConfig(): ConfigResult {
   const env = process.env;
-  const missing = REQUIRED.filter((k) => !env[k] || env[k]!.trim() === "");
+  const missing = DISCORD_REQUIRED_ENV_VARS.filter((k) => !env[k] || env[k]!.trim() === "");
   if (
     env["SESSION_SECRET"] &&
     env["SESSION_SECRET"].length < 32 &&
