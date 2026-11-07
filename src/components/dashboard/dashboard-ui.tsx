@@ -20,11 +20,11 @@ export function BotStatusBadge({ status }: { status: BotStatus }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs",
+        "inline-flex max-w-full items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs leading-5",
         map.cls,
       )}
     >
-      <span className={cn("size-1.5 rounded-full", map.dot)} aria-hidden />
+      <span className={cn("size-1.5 shrink-0 rounded-full", map.dot)} aria-hidden />
       {map.label}
     </span>
   );
@@ -32,7 +32,7 @@ export function BotStatusBadge({ status }: { status: BotStatus }) {
 
 export function SoonBadge() {
   return (
-    <span className="rounded-full border border-border px-2 py-0.5 text-[11px] text-muted-foreground">
+    <span className="shrink-0 whitespace-nowrap rounded-full border border-border px-2 py-0.5 text-[11px] text-muted-foreground">
       قريباً
     </span>
   );
@@ -52,7 +52,7 @@ export function PendingState({ label = "جارٍ التحميل…" }: { label?:
 
 export function SectionTitle({ title, children }: { title: string; children?: ReactNode }) {
   return (
-    <div className="mb-8">
+    <div className="mb-6 min-w-0 sm:mb-8">
       <h1 className="text-2xl font-bold sm:text-3xl">{title}</h1>
       {children && <p className="mt-2 text-sm leading-7 text-muted-foreground">{children}</p>}
     </div>

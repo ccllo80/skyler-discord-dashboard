@@ -18,6 +18,8 @@ export const Route = createFileRoute("/dashboard")({
       { name: "description", content: "لوحة تحكم SKYLER لإدارة خوادم ديسكورد." },
       { property: "og:title", content: "لوحة التحكم — SKYLER" },
       { property: "og:description", content: "لوحة تحكم SKYLER لإدارة خوادم ديسكورد." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -30,12 +32,15 @@ function DashboardLayout() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader
         right={
-          <div className="flex items-center gap-3">
-            <span className="hidden text-sm text-muted-foreground sm:inline">
+          <div className="flex min-w-0 items-center gap-3">
+            <span
+              dir="auto"
+              className="hidden max-w-40 truncate text-sm text-muted-foreground md:inline"
+            >
               {user.globalName ?? user.username}
             </span>
             <form method="post" action="/api/public/auth/logout">
-              <Button type="submit" variant="heroOutline" size="sm">
+              <Button type="submit" variant="heroOutline" size="sm" className="min-h-11 md:min-h-0">
                 <LogOut />
                 تسجيل الخروج
               </Button>
@@ -43,7 +48,7 @@ function DashboardLayout() {
           </div>
         }
       />
-      <main className="flex-1 bg-hero">
+      <main className="min-w-0 flex-1 bg-hero">
         <Outlet />
       </main>
     </div>

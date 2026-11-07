@@ -3,6 +3,17 @@ import { SectionTitle, SoonBadge } from "@/components/dashboard/dashboard-ui";
 import { SYSTEMS } from "@/lib/systems";
 
 export const Route = createFileRoute("/dashboard/$guildId/")({
+  head: () => ({
+    meta: [
+      { title: "أنظمة الخادم — SKYLER" },
+      { name: "description", content: "نظرة عامة على أنظمة SKYLER الثمانية قيد التطوير." },
+      { property: "og:title", content: "أنظمة الخادم — SKYLER" },
+      { property: "og:description", content: "نظرة عامة على أنظمة SKYLER قيد التطوير." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: Overview,
 });
 
@@ -15,7 +26,7 @@ function Overview() {
       </SectionTitle>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {SYSTEMS.map(({ slug, name, description, icon: Icon }) => (
-          <li key={slug}>
+          <li key={slug} className="min-w-0">
             <Link
               to="/dashboard/$guildId/$system"
               params={{ guildId, system: slug }}

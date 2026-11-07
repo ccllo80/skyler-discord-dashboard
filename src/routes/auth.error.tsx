@@ -22,6 +22,8 @@ export const Route = createFileRoute("/auth/error")({
       { name: "description", content: "لم تكتمل عملية التفويض مع ديسكورد." },
       { property: "og:title", content: "تعذّر إكمال التفويض — SKYLER" },
       { property: "og:description", content: "لم تكتمل عملية التفويض مع ديسكورد." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),

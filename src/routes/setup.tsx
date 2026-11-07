@@ -52,7 +52,7 @@ function SetupPage() {
   return (
     <PageShell>
       <StatePanel
-        className="max-w-3xl p-6 sm:p-8"
+        className="max-w-3xl p-5 sm:p-8"
         tone={configured ? "success" : "warning"}
         icon={<Settings2 />}
         title={configured ? "اكتمل الإعداد" : "الإعداد مطلوب"}
@@ -81,8 +81,11 @@ function SetupPage() {
                 const isMissing = missing.includes(name);
                 return (
                   <li key={name} className="rounded-lg border border-border/70 bg-muted/40 p-3.5">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <code dir="ltr" className="font-mono text-xs font-semibold text-foreground">
+                    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 sm:flex sm:items-center sm:justify-between">
+                      <code
+                        dir="ltr"
+                        className="min-w-0 text-start font-mono text-xs font-semibold leading-5 text-foreground"
+                      >
                         {name}
                       </code>
                       <span

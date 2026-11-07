@@ -8,6 +8,17 @@ import { getGuildAccess } from "@/lib/api/auth.functions";
 
 // Access to a guild is re-checked server-side on every load.
 export const Route = createFileRoute("/dashboard/$guildId")({
+  head: () => ({
+    meta: [
+      { title: "إدارة الخادم — SKYLER" },
+      { name: "description", content: "إدارة خادم ديسكورد وأنظمته في SKYLER." },
+      { property: "og:title", content: "إدارة الخادم — SKYLER" },
+      { property: "og:description", content: "لوحة أنظمة خادم ديسكورد في SKYLER." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   loader: ({ params }) => getGuildAccess({ data: { guildId: params.guildId } }),
   pendingComponent: () => <PendingState />,
   errorComponent: () => (
@@ -30,31 +41,33 @@ export const Route = createFileRoute("/dashboard/$guildId")({
 });
 
 const navCls =
-  "flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+  "flex min-h-11 min-w-0 items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 const activeCls = "bg-accent text-foreground";
 
 function GuildLayout() {
   const guild = Route.useLoaderData();
   const { guildId } = Route.useParams();
   return (
-    <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[240px_1fr]">
-      <aside className="lg:sticky lg:top-24 lg:self-start">
+    <div className="mx-auto grid min-w-0 max-w-6xl grid-cols-[minmax(0,1fr)] gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:grid-cols-[240px_minmax(0,1fr)]">
+      <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
         <Link
           to="/dashboard"
-          className="mb-4 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
+          className="mb-4 inline-flex min-h-11 items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground lg:min-h-0"
         >
           <ArrowRight className="size-3.5" />
           جميع الخوادم
         </Link>
         <div className="mb-4 rounded-xl border border-border bg-panel p-4">
-          <p className="truncate font-semibold">{guild.name}</p>
+          <p dir="auto" className="font-semibold">
+            {guild.name}
+          </p>
           <div className="mt-2">
             <BotStatusBadge status={guild.botStatus} />
           </div>
         </div>
         <nav
           aria-label="أنظمة الخادم"
-          className="flex gap-1 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible"
+          className="grid min-w-0 grid-cols-2 gap-1 pb-2 sm:grid-cols-3 lg:flex lg:flex-col"
         >
           <Link
             to="/dashboard/$guildId"
@@ -63,7 +76,7 @@ function GuildLayout() {
             className={navCls}
             activeProps={{ className: activeCls }}
           >
-            <LayoutGrid className="size-4" />
+            <LayoutGrid className="size-4 shrink-0" />
             نظرة عامة
           </Link>
           {SYSTEMS.map(({ slug, name, icon: Icon }) => (
@@ -74,8 +87,8 @@ function GuildLayout() {
               className={navCls}
               activeProps={{ className: activeCls }}
             >
-              <Icon className="size-4" />
-              <span className="flex-1">{name}</span>
+              <Icon className="size-4 shrink-0" />
+              <span className="min-w-0 flex-1">{name}</span>
               <span className="hidden lg:inline">
                 <SoonBadge />
               </span>
