@@ -10,6 +10,8 @@ export const Route = createFileRoute("/sign-in")({
       { name: "description", content: "سجّل الدخول بحساب ديسكورد للوصول إلى لوحة تحكم SKYLER." },
       { property: "og:title", content: "تسجيل الدخول — SKYLER" },
       { property: "og:description", content: "سجّل الدخول بحساب ديسكورد للوصول إلى لوحة التحكم." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

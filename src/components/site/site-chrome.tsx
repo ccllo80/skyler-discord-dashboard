@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +17,7 @@ export function Logo({ className }: { className?: string }) {
       )}
       aria-label="SKYLER — الصفحة الرئيسية"
     >
-      <span className="grid size-8 place-items-center rounded-lg bg-primary-gradient shadow-glow">
+      <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary-gradient shadow-glow">
         <svg
           viewBox="0 0 24 24"
           className="size-4 text-primary-foreground"
@@ -34,9 +35,10 @@ export function Logo({ className }: { className?: string }) {
 }
 
 export function SiteHeader({ right }: { right?: ReactNode }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="mx-auto grid h-16 max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-4 sm:gap-4 sm:px-6 md:flex md:justify-between">
         <Logo />
         <nav
           aria-label="التنقل الرئيسي"
@@ -61,12 +63,42 @@ export function SiteHeader({ right }: { right?: ReactNode }) {
             لوحة التحكم
           </Link>
         </nav>
-        {right ?? (
-          <Button asChild variant="heroOutline" size="sm">
-            <a href={LOGIN_HREF}>تسجيل الدخول</a>
+        <div className="flex min-w-0 shrink-0 items-center gap-1.5">
+          {right ?? (
+            <Button asChild variant="heroOutline" size="sm" className="min-h-11 md:min-h-0">
+              <a href={LOGIN_HREF}>تسجيل الدخول</a>
+            </Button>
+          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-11 shrink-0 md:hidden"
+            aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-site-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X /> : <Menu />}
           </Button>
-        )}
+        </div>
       </div>
+      {menuOpen && (
+        <nav
+          id="mobile-site-navigation"
+          aria-label="التنقل على الهاتف"
+          className="grid grid-cols-3 gap-1 border-t border-border/60 px-4 py-2 text-sm md:hidden"
+        >
+          <Button asChild variant="ghost" className="min-h-11 px-2" onClick={() => setMenuOpen(false)}>
+            <a href="/#features">المزايا</a>
+          </Button>
+          <Button asChild variant="ghost" className="min-h-11 px-2" onClick={() => setMenuOpen(false)}>
+            <a href="/#systems">الأنظمة</a>
+          </Button>
+          <Button asChild variant="ghost" className="min-h-11 px-2" onClick={() => setMenuOpen(false)}>
+            <Link to="/dashboard">لوحة التحكم</Link>
+          </Button>
+        </nav>
+      )}
     </header>
   );
 }
@@ -86,17 +118,17 @@ export function SiteFooter() {
           <p className="font-semibold text-foreground">الموقع</p>
           <ul className="space-y-2 text-muted-foreground">
             <li>
-              <Link to="/" className="hover:text-foreground">
+              <Link to="/" className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0">
                 الرئيسية
               </Link>
             </li>
             <li>
-              <a href="/#systems" className="hover:text-foreground">
+              <a href="/#systems" className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0">
                 الأنظمة
               </a>
             </li>
             <li>
-              <Link to="/dashboard" className="hover:text-foreground">
+              <Link to="/dashboard" className="inline-flex min-h-11 items-center hover:text-foreground md:min-h-0">
                 لوحة التحكم
               </Link>
             </li>
@@ -145,7 +177,7 @@ export function StatePanel({
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-lg rounded-2xl border border-border bg-panel p-8 text-center animate-in fade-in zoom-in-95 duration-300",
+        "mx-auto min-w-0 w-full max-w-lg rounded-2xl border border-border bg-panel p-5 text-center animate-in fade-in zoom-in-95 duration-300 sm:p-8",
         className,
       )}
     >
@@ -162,7 +194,7 @@ export function StatePanel({
       <h1 className="text-xl font-bold text-foreground sm:text-2xl">{title}</h1>
       {children && <div className="mt-3 text-sm leading-7 text-muted-foreground">{children}</div>}
       {actions && (
-        <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-center">{actions}</div>
+        <div className="mt-7 flex min-w-0 flex-col gap-3 [&_a]:min-h-11 [&_a]:whitespace-normal [&_button]:min-h-11 sm:flex-row sm:flex-wrap sm:justify-center">{actions}</div>
       )}
     </div>
   );
@@ -172,7 +204,7 @@ export function PageShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="relative flex flex-1 items-center justify-center bg-hero px-4 py-16">
+      <main className="relative flex min-w-0 flex-1 items-center justify-center bg-hero px-4 py-8 sm:py-16">
         {children}
       </main>
       <SiteFooter />

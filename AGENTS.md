@@ -37,3 +37,4 @@ use the editor.
 - Guild management permission is checked server-side (`canManageGuild`) on every dashboard load.
 - Dashboard systems are declared in `src/lib/systems.ts`; all stay "soon" until real bot API integration exists.
 - All user-facing copy is formal Arabic with RTL (`<html lang="ar" dir="rtl">`).
+- Shared mobile navigation is controlled by SiteHeader; guild navigation uses a wrapping grid below desktop, with minmax(0,1fr) content tracks to contain long RTL names without hiding overflow.

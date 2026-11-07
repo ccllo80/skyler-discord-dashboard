@@ -16,6 +16,8 @@ export const Route = createFileRoute("/invite/success")({
       { name: "description", content: "اكتملت إضافة SKYLER إلى خادمك." },
       { property: "og:title", content: "تمت إضافة البوت — SKYLER" },
       { property: "og:description", content: "اكتملت إضافة SKYLER إلى خادمك." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),

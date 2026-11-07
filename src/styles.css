@@ -115,11 +115,33 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    overflow-wrap: anywhere;
+    margin: 0;
+  }
+  img,
+  video {
+    max-width: 100%;
+  }
+  [id] {
+    scroll-margin-top: 8rem;
   }
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
