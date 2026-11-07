@@ -6,7 +6,7 @@ import { getConfigStatus } from "@/lib/api/auth.functions";
 
 export const Route = createFileRoute("/setup")({
   validateSearch: (s: Record<string, unknown>) => ({
-    flow: s.flow === "invite" ? ("invite" as const) : ("login" as const),
+    flow: s["flow"] === "invite" ? ("invite" as const) : ("login" as const),
   }),
   loader: () => getConfigStatus(),
   head: () => ({

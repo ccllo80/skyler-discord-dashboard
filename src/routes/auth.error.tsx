@@ -12,7 +12,7 @@ const MESSAGES = {
 
 export const Route = createFileRoute("/auth/error")({
   validateSearch: (s: Record<string, unknown>) => ({
-    reason: (typeof s.reason === "string" && s.reason in MESSAGES ? s.reason : "unknown") as keyof typeof MESSAGES,
+    reason: (typeof s["reason"] === "string" && s["reason"] in MESSAGES ? s["reason"] : "unknown") as keyof typeof MESSAGES,
   }),
   head: () => ({
     meta: [

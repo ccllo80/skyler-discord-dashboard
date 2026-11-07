@@ -27,21 +27,21 @@ const REQUIRED = [
 export function getDiscordConfig(): ConfigResult {
   const env = process.env;
   const missing = REQUIRED.filter((k) => !env[k] || env[k]!.trim() === "");
-  if (env.SESSION_SECRET && env.SESSION_SECRET.length < 32 && !missing.includes("SESSION_SECRET")) {
+  if (env["SESSION_SECRET"] && env["SESSION_SECRET"].length < 32 && !missing.includes("SESSION_SECRET")) {
     missing.push("SESSION_SECRET");
   }
   if (missing.length) return { ok: false, missing: [...missing] };
   return {
     ok: true,
     config: {
-      clientId: env.DISCORD_CLIENT_ID!,
-      clientSecret: env.DISCORD_CLIENT_SECRET!,
-      loginRedirectUri: env.DISCORD_REDIRECT_URI!,
-      inviteRedirectUri: env.DISCORD_INVITE_REDIRECT_URI!,
-      botPermissions: env.DISCORD_BOT_PERMISSIONS!,
-      sessionSecret: env.SESSION_SECRET!,
-      botToken: env.DISCORD_BOT_TOKEN || null,
-      apiBaseUrl: env.SKYLER_API_BASE_URL || null,
+      clientId: env["DISCORD_CLIENT_ID"]!,
+      clientSecret: env["DISCORD_CLIENT_SECRET"]!,
+      loginRedirectUri: env["DISCORD_REDIRECT_URI"]!,
+      inviteRedirectUri: env["DISCORD_INVITE_REDIRECT_URI"]!,
+      botPermissions: env["DISCORD_BOT_PERMISSIONS"]!,
+      sessionSecret: env["SESSION_SECRET"]!,
+      botToken: env["DISCORD_BOT_TOKEN"] || null,
+      apiBaseUrl: env["SKYLER_API_BASE_URL"] || null,
     },
   };
 }
