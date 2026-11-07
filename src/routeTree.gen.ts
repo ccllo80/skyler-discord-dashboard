@@ -10,33 +10,215 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as SetupRouteImport } from './routes/setup'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as AuthErrorRouteImport } from './routes/auth.error'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardGuildIdRouteImport } from './routes/dashboard.$guildId'
+import { Route as InviteSuccessRouteImport } from './routes/invite.success'
+import { Route as DashboardGuildIdIndexRouteImport } from './routes/dashboard.$guildId.index'
+import { Route as DashboardGuildIdSystemRouteImport } from './routes/dashboard.$guildId.$system'
+import { Route as ApiPublicAuthLogoutRouteImport } from './routes/api/public/auth/logout'
+import { Route as ApiPublicAuthDiscordCallbackRouteImport } from './routes/api/public/auth/discord/callback'
+import { Route as ApiPublicAuthDiscordInviteRouteImport } from './routes/api/public/auth/discord/invite'
+import { Route as ApiPublicAuthDiscordInviteCallbackRouteImport } from './routes/api/public/auth/discord/invite-callback'
+import { Route as ApiPublicAuthDiscordLoginRouteImport } from './routes/api/public/auth/discord/login'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthErrorRoute = AuthErrorRouteImport.update({
+  id: '/auth/error',
+  path: '/auth/error',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardGuildIdRoute = DashboardGuildIdRouteImport.update({
+  id: '/$guildId',
+  path: '/$guildId',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const InviteSuccessRoute = InviteSuccessRouteImport.update({
+  id: '/invite/success',
+  path: '/invite/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardGuildIdIndexRoute = DashboardGuildIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardGuildIdRoute,
+} as any)
+const DashboardGuildIdSystemRoute = DashboardGuildIdSystemRouteImport.update({
+  id: '/$system',
+  path: '/$system',
+  getParentRoute: () => DashboardGuildIdRoute,
+} as any)
+const ApiPublicAuthLogoutRoute = ApiPublicAuthLogoutRouteImport.update({
+  id: '/api/public/auth/logout',
+  path: '/api/public/auth/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicAuthDiscordCallbackRoute =
+  ApiPublicAuthDiscordCallbackRouteImport.update({
+    id: '/api/public/auth/discord/callback',
+    path: '/api/public/auth/discord/callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAuthDiscordInviteRoute =
+  ApiPublicAuthDiscordInviteRouteImport.update({
+    id: '/api/public/auth/discord/invite',
+    path: '/api/public/auth/discord/invite',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAuthDiscordInviteCallbackRoute =
+  ApiPublicAuthDiscordInviteCallbackRouteImport.update({
+    id: '/api/public/auth/discord/invite-callback',
+    path: '/api/public/auth/discord/invite-callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAuthDiscordLoginRoute =
+  ApiPublicAuthDiscordLoginRouteImport.update({
+    id: '/api/public/auth/discord/login',
+    path: '/api/public/auth/discord/login',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/setup': typeof SetupRoute
+  '/sign-in': typeof SignInRoute
+  '/auth/error': typeof AuthErrorRoute
+  '/dashboard/$guildId': typeof DashboardGuildIdRouteWithChildren
+  '/invite/success': typeof InviteSuccessRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/$guildId/$system': typeof DashboardGuildIdSystemRoute
+  '/dashboard/$guildId/': typeof DashboardGuildIdIndexRoute
+  '/api/public/auth/logout': typeof ApiPublicAuthLogoutRoute
+  '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
+  '/api/public/auth/discord/invite': typeof ApiPublicAuthDiscordInviteRoute
+  '/api/public/auth/discord/invite-callback': typeof ApiPublicAuthDiscordInviteCallbackRoute
+  '/api/public/auth/discord/login': typeof ApiPublicAuthDiscordLoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/setup': typeof SetupRoute
+  '/sign-in': typeof SignInRoute
+  '/auth/error': typeof AuthErrorRoute
+  '/invite/success': typeof InviteSuccessRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/$guildId/$system': typeof DashboardGuildIdSystemRoute
+  '/dashboard/$guildId': typeof DashboardGuildIdIndexRoute
+  '/api/public/auth/logout': typeof ApiPublicAuthLogoutRoute
+  '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
+  '/api/public/auth/discord/invite': typeof ApiPublicAuthDiscordInviteRoute
+  '/api/public/auth/discord/invite-callback': typeof ApiPublicAuthDiscordInviteCallbackRoute
+  '/api/public/auth/discord/login': typeof ApiPublicAuthDiscordLoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/setup': typeof SetupRoute
+  '/sign-in': typeof SignInRoute
+  '/auth/error': typeof AuthErrorRoute
+  '/dashboard/$guildId': typeof DashboardGuildIdRouteWithChildren
+  '/invite/success': typeof InviteSuccessRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/$guildId/$system': typeof DashboardGuildIdSystemRoute
+  '/dashboard/$guildId/': typeof DashboardGuildIdIndexRoute
+  '/api/public/auth/logout': typeof ApiPublicAuthLogoutRoute
+  '/api/public/auth/discord/callback': typeof ApiPublicAuthDiscordCallbackRoute
+  '/api/public/auth/discord/invite': typeof ApiPublicAuthDiscordInviteRoute
+  '/api/public/auth/discord/invite-callback': typeof ApiPublicAuthDiscordInviteCallbackRoute
+  '/api/public/auth/discord/login': typeof ApiPublicAuthDiscordLoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/setup'
+    | '/sign-in'
+    | '/auth/error'
+    | '/dashboard/$guildId'
+    | '/invite/success'
+    | '/dashboard/'
+    | '/dashboard/$guildId/$system'
+    | '/dashboard/$guildId/'
+    | '/api/public/auth/logout'
+    | '/api/public/auth/discord/callback'
+    | '/api/public/auth/discord/invite'
+    | '/api/public/auth/discord/invite-callback'
+    | '/api/public/auth/discord/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/setup'
+    | '/sign-in'
+    | '/auth/error'
+    | '/invite/success'
+    | '/dashboard'
+    | '/dashboard/$guildId/$system'
+    | '/dashboard/$guildId'
+    | '/api/public/auth/logout'
+    | '/api/public/auth/discord/callback'
+    | '/api/public/auth/discord/invite'
+    | '/api/public/auth/discord/invite-callback'
+    | '/api/public/auth/discord/login'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/setup'
+    | '/sign-in'
+    | '/auth/error'
+    | '/dashboard/$guildId'
+    | '/invite/success'
+    | '/dashboard/'
+    | '/dashboard/$guildId/$system'
+    | '/dashboard/$guildId/'
+    | '/api/public/auth/logout'
+    | '/api/public/auth/discord/callback'
+    | '/api/public/auth/discord/invite'
+    | '/api/public/auth/discord/invite-callback'
+    | '/api/public/auth/discord/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  SetupRoute: typeof SetupRoute
+  SignInRoute: typeof SignInRoute
+  AuthErrorRoute: typeof AuthErrorRoute
+  InviteSuccessRoute: typeof InviteSuccessRoute
+  ApiPublicAuthLogoutRoute: typeof ApiPublicAuthLogoutRoute
+  ApiPublicAuthDiscordCallbackRoute: typeof ApiPublicAuthDiscordCallbackRoute
+  ApiPublicAuthDiscordInviteRoute: typeof ApiPublicAuthDiscordInviteRoute
+  ApiPublicAuthDiscordInviteCallbackRoute: typeof ApiPublicAuthDiscordInviteCallbackRoute
+  ApiPublicAuthDiscordLoginRoute: typeof ApiPublicAuthDiscordLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +230,147 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/error': {
+      id: '/auth/error'
+      path: '/auth/error'
+      fullPath: '/auth/error'
+      preLoaderRoute: typeof AuthErrorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/$guildId': {
+      id: '/dashboard/$guildId'
+      path: '/$guildId'
+      fullPath: '/dashboard/$guildId'
+      preLoaderRoute: typeof DashboardGuildIdRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/invite/success': {
+      id: '/invite/success'
+      path: '/invite/success'
+      fullPath: '/invite/success'
+      preLoaderRoute: typeof InviteSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/$guildId/': {
+      id: '/dashboard/$guildId/'
+      path: '/'
+      fullPath: '/dashboard/$guildId/'
+      preLoaderRoute: typeof DashboardGuildIdIndexRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
+    '/dashboard/$guildId/$system': {
+      id: '/dashboard/$guildId/$system'
+      path: '/$system'
+      fullPath: '/dashboard/$guildId/$system'
+      preLoaderRoute: typeof DashboardGuildIdSystemRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
+    '/api/public/auth/logout': {
+      id: '/api/public/auth/logout'
+      path: '/api/public/auth/logout'
+      fullPath: '/api/public/auth/logout'
+      preLoaderRoute: typeof ApiPublicAuthLogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/auth/discord/callback': {
+      id: '/api/public/auth/discord/callback'
+      path: '/api/public/auth/discord/callback'
+      fullPath: '/api/public/auth/discord/callback'
+      preLoaderRoute: typeof ApiPublicAuthDiscordCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/auth/discord/invite': {
+      id: '/api/public/auth/discord/invite'
+      path: '/api/public/auth/discord/invite'
+      fullPath: '/api/public/auth/discord/invite'
+      preLoaderRoute: typeof ApiPublicAuthDiscordInviteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/auth/discord/invite-callback': {
+      id: '/api/public/auth/discord/invite-callback'
+      path: '/api/public/auth/discord/invite-callback'
+      fullPath: '/api/public/auth/discord/invite-callback'
+      preLoaderRoute: typeof ApiPublicAuthDiscordInviteCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/auth/discord/login': {
+      id: '/api/public/auth/discord/login'
+      path: '/api/public/auth/discord/login'
+      fullPath: '/api/public/auth/discord/login'
+      preLoaderRoute: typeof ApiPublicAuthDiscordLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface DashboardGuildIdRouteChildren {
+  DashboardGuildIdSystemRoute: typeof DashboardGuildIdSystemRoute
+  DashboardGuildIdIndexRoute: typeof DashboardGuildIdIndexRoute
+}
+
+const DashboardGuildIdRouteChildren: DashboardGuildIdRouteChildren = {
+  DashboardGuildIdSystemRoute: DashboardGuildIdSystemRoute,
+  DashboardGuildIdIndexRoute: DashboardGuildIdIndexRoute,
+}
+
+const DashboardGuildIdRouteWithChildren =
+  DashboardGuildIdRoute._addFileChildren(DashboardGuildIdRouteChildren)
+
+interface DashboardRouteChildren {
+  DashboardGuildIdRoute: typeof DashboardGuildIdRouteWithChildren
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardGuildIdRoute: DashboardGuildIdRouteWithChildren,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  SetupRoute: SetupRoute,
+  SignInRoute: SignInRoute,
+  AuthErrorRoute: AuthErrorRoute,
+  InviteSuccessRoute: InviteSuccessRoute,
+  ApiPublicAuthLogoutRoute: ApiPublicAuthLogoutRoute,
+  ApiPublicAuthDiscordCallbackRoute: ApiPublicAuthDiscordCallbackRoute,
+  ApiPublicAuthDiscordInviteRoute: ApiPublicAuthDiscordInviteRoute,
+  ApiPublicAuthDiscordInviteCallbackRoute:
+    ApiPublicAuthDiscordInviteCallbackRoute,
+  ApiPublicAuthDiscordLoginRoute: ApiPublicAuthDiscordLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
