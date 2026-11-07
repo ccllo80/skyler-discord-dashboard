@@ -31,9 +31,14 @@ function DashboardLayout() {
       <SiteHeader
         right={
           <div className="flex items-center gap-3">
-            <span className="hidden text-sm text-muted-foreground sm:inline">{user.globalName ?? user.username}</span>
+            <span className="hidden text-sm text-muted-foreground sm:inline">
+              {user.globalName ?? user.username}
+            </span>
             <form method="post" action="/api/public/auth/logout">
-              <Button type="submit" variant="heroOutline" size="sm"><LogOut />تسجيل الخروج</Button>
+              <Button type="submit" variant="heroOutline" size="sm">
+                <LogOut />
+                تسجيل الخروج
+              </Button>
             </form>
           </div>
         }

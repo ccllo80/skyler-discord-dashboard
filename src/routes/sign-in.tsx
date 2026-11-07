@@ -14,8 +14,18 @@ export const Route = createFileRoute("/sign-in")({
   }),
   component: () => (
     <PageShell>
-      <StatePanel icon={<KeyRound />} title="تسجيل الدخول مطلوب"
-        actions={<Button asChild variant="hero" size="lg"><a href={LOGIN_HREF}><LogIn />تسجيل الدخول عبر ديسكورد</a></Button>}>
+      <StatePanel
+        icon={<KeyRound />}
+        title="تسجيل الدخول مطلوب"
+        actions={
+          <Button asChild variant="hero" size="lg">
+            <a href={LOGIN_HREF}>
+              <LogIn />
+              تسجيل الدخول عبر ديسكورد
+            </a>
+          </Button>
+        }
+      >
         للوصول إلى لوحة التحكم، يُرجى تسجيل الدخول بحسابك في ديسكورد.
       </StatePanel>
     </PageShell>

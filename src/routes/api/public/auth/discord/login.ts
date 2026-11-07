@@ -6,12 +6,12 @@ export const Route = createFileRoute("/api/public/auth/discord/login")({
     handlers: {
       GET: async () => {
         const { getDiscordConfig } = await import("@/server/discord/config");
-        const { randomState, cookie, redirectTo, STATE_COOKIE } = await import("@/server/discord/session");
+        const s = await import("@/server/discord/session");
         const { loginAuthorizeUrl } = await import("@/server/discord/oauth");
         const cfg = getDiscordConfig();
-        if (!cfg.ok) return redirectTo("/setup?flow=login");
-        const state = `login.${randomState()}`;
-        return redirectTo(loginAuthorizeUrl(cfg.config, state), [cookie(STATE_COOKIE, state, 600)]);
+        if (!cfg.ok) return s.redirectTo("/setup?flow=login");
+        const state = s.randomState();
+        return s.redirectTo(loginAuthorizeUrl(cfg.config, state), [s.stateCookie("login", state)]);
       },
     },
   },

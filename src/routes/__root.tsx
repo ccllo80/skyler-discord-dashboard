@@ -22,7 +22,11 @@ function NotFoundComponent() {
       <StatePanel
         icon={<Compass />}
         title="الصفحة غير موجودة"
-        actions={<Button asChild variant="hero"><Link to="/">العودة إلى الرئيسية</Link></Button>}
+        actions={
+          <Button asChild variant="hero">
+            <Link to="/">العودة إلى الرئيسية</Link>
+          </Button>
+        }
       >
         تعذّر العثور على الصفحة المطلوبة، فربما نُقلت أو لم تعد متاحة.
       </StatePanel>
@@ -45,8 +49,18 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
         title="تعذّر تحميل الصفحة"
         actions={
           <>
-            <Button variant="hero" onClick={() => { router.invalidate(); reset(); }}>إعادة المحاولة</Button>
-            <Button asChild variant="heroOutline"><a href="/">العودة إلى الرئيسية</a></Button>
+            <Button
+              variant="hero"
+              onClick={() => {
+                router.invalidate();
+                reset();
+              }}
+            >
+              إعادة المحاولة
+            </Button>
+            <Button asChild variant="heroOutline">
+              <a href="/">العودة إلى الرئيسية</a>
+            </Button>
           </>
         }
       >
