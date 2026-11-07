@@ -70,3 +70,9 @@ export function safeEqual(a: string, b: string) {
   for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return r === 0;
 }
+
+export function redirectTo(location: string, cookies: string[] = []) {
+  const headers = new Headers({ location, "cache-control": "no-store" });
+  cookies.forEach((c) => headers.append("set-cookie", c));
+  return new Response(null, { status: 302, headers });
+}
