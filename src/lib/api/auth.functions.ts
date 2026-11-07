@@ -3,6 +3,7 @@ import { getRequest, deleteCookie } from "@tanstack/react-start/server";
 import { z } from "zod";
 
 import { canManageGuild } from "@/lib/discord-permissions";
+import { buildDiscordRedirectUris } from "@/lib/discord-setup";
 import type { BotStatus, GuildSummary, PublicUser } from "@/lib/auth-types";
 
 // Only public user fields and guild summaries are returned; the access token never leaves the server.

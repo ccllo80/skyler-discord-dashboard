@@ -13,7 +13,7 @@ export interface DiscordConfig {
 
 export type ConfigResult = { ok: true; config: DiscordConfig } | { ok: false; missing: string[] };
 
-const REQUIRED = [
+export const DISCORD_REQUIRED_ENV_VARS = [
   "DISCORD_CLIENT_ID",
   "DISCORD_CLIENT_SECRET",
   "DISCORD_REDIRECT_URI",

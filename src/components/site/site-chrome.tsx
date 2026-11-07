@@ -127,12 +127,14 @@ export function StatePanel({
   children,
   actions,
   tone = "default",
+  className,
 }: {
   icon?: ReactNode;
   title: string;
   children?: ReactNode;
   actions?: ReactNode;
   tone?: "default" | "success" | "warning" | "danger";
+  className?: string;
 }) {
   const toneCls = {
     default: "text-glow",
