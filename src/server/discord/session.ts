@@ -36,7 +36,7 @@ export async function sealSession(data: SessionData, secret: string) {
 export async function unsealSession(value: string | undefined, secret: string): Promise<SessionData | null> {
   if (!value) return null;
   try {
-    const [iv, ct] = value.split(".");
+    const [iv = "", ct = ""] = value.split(".");
     const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64url(iv) }, await key(secret), fromB64url(ct));
     const data = JSON.parse(dec.decode(pt)) as SessionData;
     if (data.expiresAt < Date.now()) return null;

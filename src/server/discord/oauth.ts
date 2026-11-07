@@ -71,7 +71,7 @@ export async function fetchBotGuildIds(botToken: string | null): Promise<Set<str
     const page = (await res.json()) as { id: string }[];
     page.forEach((g) => ids.add(g.id));
     if (page.length < 200) break;
-    after = page[page.length - 1].id;
+    after = page[page.length - 1]!.id;
   }
   return ids;
 }
