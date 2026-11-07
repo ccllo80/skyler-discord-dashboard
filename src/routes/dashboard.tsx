@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
 import { SiteHeader } from "@/components/site/site-chrome";
 import { Button } from "@/components/ui/button";
-import { getCurrentUser } from "@/server/auth.functions";
+import { getCurrentUser } from "@/lib/api/auth.functions";
 
 // Protected layout: the session is verified server-side (encrypted HttpOnly cookie).
 export const Route = createFileRoute("/dashboard")({

@@ -3,7 +3,7 @@ import { ChevronLeft, ServerOff } from "lucide-react";
 import { BotStatusBadge, PendingState, SectionTitle } from "@/components/dashboard/dashboard-ui";
 import { StatePanel } from "@/components/site/site-chrome";
 import { guildIconUrl } from "@/lib/auth-types";
-import { getManageableGuilds } from "@/server/auth.functions";
+import { getManageableGuilds } from "@/lib/api/auth.functions";
 
 export const Route = createFileRoute("/dashboard/")({
   loader: () => getManageableGuilds(),

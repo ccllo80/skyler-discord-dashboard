@@ -6,8 +6,8 @@ import { canManageGuild } from "@/lib/discord-permissions";
 import type { BotStatus, GuildSummary, PublicUser } from "@/lib/auth-types";
 
 async function loadSession() {
-  const { getDiscordConfig } = await import("./discord/config");
-  const { unsealSession, readCookie, SESSION_COOKIE } = await import("./discord/session");
+  const { getDiscordConfig } = await import("@/server/discord/config");
+  const { unsealSession, readCookie, SESSION_COOKIE } = await import("@/server/discord/session");
   const cfg = getDiscordConfig();
   if (!cfg.ok) return { cfg, session: null };
   const session = await unsealSession(readCookie(getRequest(), SESSION_COOKIE), cfg.config.sessionSecret);
@@ -22,7 +22,7 @@ export const getCurrentUser = createServerFn({ method: "GET" }).handler(
 );
 
 export const getConfigStatus = createServerFn({ method: "GET" }).handler(async () => {
-  const { getDiscordConfig } = await import("./discord/config");
+  const { getDiscordConfig } = await import("@/server/discord/config");
   const cfg = getDiscordConfig();
   return { configured: cfg.ok, missing: cfg.ok ? [] : cfg.missing };
 });
@@ -30,7 +30,7 @@ export const getConfigStatus = createServerFn({ method: "GET" }).handler(async (
 async function manageableGuilds(): Promise<GuildSummary[]> {
   const { cfg, session } = await loadSession();
   if (!cfg.ok || !session) throw new Error("UNAUTHENTICATED");
-  const { fetchUserGuilds, fetchBotGuildIds } = await import("./discord/oauth");
+  const { fetchUserGuilds, fetchBotGuildIds } = await import("@/server/discord/oauth");
   const [guilds, botIds] = await Promise.all([
     fetchUserGuilds(session.accessToken),
     fetchBotGuildIds(cfg.config.botToken),

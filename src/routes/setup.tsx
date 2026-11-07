@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Settings2 } from "lucide-react";
 import { PageShell, StatePanel } from "@/components/site/site-chrome";
 import { Button } from "@/components/ui/button";
-import { getConfigStatus } from "@/server/auth.functions";
+import { getConfigStatus } from "@/lib/api/auth.functions";
 
 export const Route = createFileRoute("/setup")({
   validateSearch: (s: Record<string, unknown>) => ({

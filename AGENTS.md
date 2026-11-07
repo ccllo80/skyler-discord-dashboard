@@ -30,6 +30,7 @@ use the editor.
 <!-- LOVABLE:END -->
 
 ## Project rules
+- Server functions callable from the UI live in `src/lib/api/*.functions.ts` (`**/server/**` is client-import-protected) and lazy-import `src/server/*` inside handlers.
 - Discord OAuth lives only in server routes under `src/routes/api/public/auth/*` and `src/server/discord/*`; the browser never sees codes, tokens or the client secret.
 - Sessions are AES-GCM encrypted HttpOnly cookies keyed by `SESSION_SECRET` (no database yet); OAuth `state` is validated via a short-lived HttpOnly cookie.
 - Env config is read only through `getDiscordConfig()` in `src/server/discord/config.ts`; missing config redirects to `/setup` instead of faking success.

@@ -4,7 +4,7 @@ import { BotStatusBadge, PendingState, SoonBadge } from "@/components/dashboard/
 import { StatePanel } from "@/components/site/site-chrome";
 import { Button } from "@/components/ui/button";
 import { SYSTEMS } from "@/lib/systems";
-import { getGuildAccess } from "@/server/auth.functions";
+import { getGuildAccess } from "@/lib/api/auth.functions";
 
 // Access to a guild is re-checked server-side on every load.
 export const Route = createFileRoute("/dashboard/$guildId")({
