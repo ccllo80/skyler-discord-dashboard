@@ -127,12 +127,14 @@ export function StatePanel({
   children,
   actions,
   tone = "default",
+  className,
 }: {
   icon?: ReactNode;
   title: string;
   children?: ReactNode;
   actions?: ReactNode;
   tone?: "default" | "success" | "warning" | "danger";
+  className?: string;
 }) {
   const toneCls = {
     default: "text-glow",
@@ -141,7 +143,12 @@ export function StatePanel({
     danger: "text-destructive",
   }[tone];
   return (
-    <div className="mx-auto w-full max-w-lg rounded-2xl border border-border bg-panel p-8 text-center animate-in fade-in zoom-in-95 duration-300">
+    <div
+      className={cn(
+        "mx-auto w-full max-w-lg rounded-2xl border border-border bg-panel p-8 text-center animate-in fade-in zoom-in-95 duration-300",
+        className,
+      )}
+    >
       {icon && (
         <div
           className={cn(

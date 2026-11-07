@@ -3,6 +3,7 @@ import { getRequest, deleteCookie } from "@tanstack/react-start/server";
 import { z } from "zod";
 
 import { canManageGuild } from "@/lib/discord-permissions";
+import { buildDiscordRedirectUris } from "@/lib/discord-setup";
 import type { BotStatus, GuildSummary, PublicUser } from "@/lib/auth-types";
 
 // Only public user fields and guild summaries are returned; the access token never leaves the server.
@@ -26,9 +27,14 @@ export const getCurrentUser = createServerFn({ method: "GET" }).handler(
 );
 
 export const getConfigStatus = createServerFn({ method: "GET" }).handler(async () => {
-  const { getDiscordConfig } = await import("@/server/discord/config");
+  const { getDiscordConfig, DISCORD_REQUIRED_ENV_VARS } = await import("@/server/discord/config");
   const cfg = getDiscordConfig();
-  return { configured: cfg.ok, missing: cfg.ok ? [] : cfg.missing };
+  return {
+    configured: cfg.ok,
+    missing: cfg.ok ? [] : cfg.missing,
+    required: [...DISCORD_REQUIRED_ENV_VARS],
+    redirectUris: buildDiscordRedirectUris(new URL(getRequest().url).origin),
+  };
 });
 
 /** Verifies (once) the sealed proof set by a successful invite callback. */

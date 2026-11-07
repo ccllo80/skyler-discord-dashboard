@@ -13,7 +13,7 @@ export interface DiscordConfig {
 
 export type ConfigResult = { ok: true; config: DiscordConfig } | { ok: false; missing: string[] };
 
-const REQUIRED = [
+export const DISCORD_REQUIRED_ENV_VARS = [
   "DISCORD_CLIENT_ID",
   "DISCORD_CLIENT_SECRET",
   "DISCORD_REDIRECT_URI",
@@ -24,7 +24,7 @@ const REQUIRED = [
 
 export function getDiscordConfig(): ConfigResult {
   const env = process.env;
-  const missing = REQUIRED.filter((k) => !env[k] || env[k]!.trim() === "");
+  const missing = DISCORD_REQUIRED_ENV_VARS.filter((k) => !env[k] || env[k]!.trim() === "");
   if (
     env["SESSION_SECRET"] &&
     env["SESSION_SECRET"].length < 32 &&
