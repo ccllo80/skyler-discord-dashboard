@@ -9,6 +9,7 @@ export interface DiscordConfig {
   sessionSecret: string;
   botToken: string | null;
   apiBaseUrl: string | null;
+  apiSecret: string | null;
 }
 
 export type ConfigResult = { ok: true; config: DiscordConfig } | { ok: false; missing: string[] };
@@ -44,6 +45,7 @@ export function getDiscordConfig(): ConfigResult {
       sessionSecret: env["SESSION_SECRET"]!,
       botToken: env["DISCORD_BOT_TOKEN"] || null,
       apiBaseUrl: env["SKYLER_API_BASE_URL"] || null,
+      apiSecret: env["SKYLER_API_SECRET"] || null,
     },
   };
 }
