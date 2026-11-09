@@ -18,19 +18,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: bun install --frozen-lockfile
 
       - name: Typecheck
-        run: npx tsc --noEmit
+        run: bunx tsc --noEmit
 
       - name: Run tests
-        run: npm run test
+        run: bun run test
 
       - name: Build
-        run: npm run build
+        run: bun run build
