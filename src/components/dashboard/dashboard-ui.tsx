@@ -38,6 +38,14 @@ export function SoonBadge() {
   );
 }
 
+export function AvailableBadge() {
+  return (
+    <span className="shrink-0 whitespace-nowrap rounded-full border border-border px-2 py-0.5 text-[11px] text-foreground">
+      متاح
+    </span>
+  );
+}
+
 export function PendingState({ label = "جارٍ التحميل…" }: { label?: string }) {
   return (
     <div
