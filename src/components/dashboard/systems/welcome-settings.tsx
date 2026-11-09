@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Check, Info, Save, Send, Users, UserRoundMinus } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { Info, Save, Send, Users, UserRoundMinus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -212,7 +212,7 @@ function MessageCard({
 }: {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   enabled: boolean;
   onEnabledChange: (value: boolean) => void;
   channelId: string | null;
