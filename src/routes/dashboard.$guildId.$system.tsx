@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { Hourglass } from "lucide-react";
-import { AvailableBadge, SectionTitle, SoonBadge } from "@/components/dashboard/dashboard-ui";
+import { SectionTitle, SoonBadge } from "@/components/dashboard/dashboard-ui";
 import { WelcomeSettingsPage } from "@/components/dashboard/systems/welcome-settings";
 import { StatePanel } from "@/components/site/site-chrome";
 import { getWelcomeSettings } from "@/lib/api/welcome.functions";
