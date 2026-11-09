@@ -15,9 +15,13 @@ export function saveWelcomeSettings(guildId: string, settings: WelcomeSettings) 
   });
 }
 
-export function sendWelcomeTest(guildId: string, kind: "welcome" | "leave") {
+export function sendWelcomeTest(
+  guildId: string,
+  kind: "welcome" | "leave",
+  settings: WelcomeSettings,
+) {
   return requestBotApi<{ sent: boolean }>(`${guildPath(guildId)}/test`, {
     method: "POST",
-    body: JSON.stringify({ kind }),
+    body: JSON.stringify({ kind, settings }),
   });
 }
