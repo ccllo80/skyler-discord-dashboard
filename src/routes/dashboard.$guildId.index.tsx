@@ -1,14 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SectionTitle, SoonBadge } from "@/components/dashboard/dashboard-ui";
+import { AvailableBadge, SectionTitle, SoonBadge } from "@/components/dashboard/dashboard-ui";
 import { SYSTEMS } from "@/lib/systems";
 
 export const Route = createFileRoute("/dashboard/$guildId/")({
   head: () => ({
     meta: [
       { title: "أنظمة الخادم — SKYLER" },
-      { name: "description", content: "نظرة عامة على أنظمة SKYLER الثمانية قيد التطوير." },
+      { name: "description", content: "إدارة أنظمة خادم ديسكورد من لوحة SKYLER." },
       { property: "og:title", content: "أنظمة الخادم — SKYLER" },
-      { property: "og:description", content: "نظرة عامة على أنظمة SKYLER قيد التطوير." },
+      { property: "og:description", content: "إدارة أنظمة خادم ديسكورد من لوحة SKYLER." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
@@ -22,10 +22,10 @@ function Overview() {
   return (
     <div>
       <SectionTitle title="أنظمة الخادم">
-        الأنظمة قيد التطوير، وستُفعَّل إعداداتها عند اكتمال الربط مع البوت.
+        اختر النظام الذي تريد إدارته. ستُتاح الأنظمة الأخرى تباعاً بعد اكتمال تطويرها.
       </SectionTitle>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-        {SYSTEMS.map(({ slug, name, description, icon: Icon }) => (
+        {SYSTEMS.map(({ slug, name, description, icon: Icon, status }) => (
           <li key={slug} className="min-w-0">
             <Link
               to="/dashboard/$guildId/$system"
@@ -36,7 +36,7 @@ function Overview() {
                 <span className="grid size-9 place-items-center rounded-lg bg-muted">
                   <Icon className="size-4" aria-hidden />
                 </span>
-                <SoonBadge />
+                {status === "available" ? <AvailableBadge /> : <SoonBadge />}
               </div>
               <h2 className="mt-4 font-semibold">{name}</h2>
               <p className="mt-1.5 text-sm leading-6 text-muted-foreground">{description}</p>
