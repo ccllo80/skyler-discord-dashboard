@@ -1,8 +1,17 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutGrid, ShieldX, ArrowRight } from "lucide-react";
+import { ArrowRight, LayoutGrid, Menu, ShieldX } from "lucide-react";
 import { BotStatusBadge, PendingState, SoonBadge } from "@/components/dashboard/dashboard-ui";
 import { StatePanel } from "@/components/site/site-chrome";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { SYSTEMS } from "@/lib/systems";
 import { getGuildAccess } from "@/lib/api/auth.functions";
 
@@ -41,61 +50,86 @@ export const Route = createFileRoute("/dashboard/$guildId")({
 });
 
 const navCls =
-  "flex min-h-11 min-w-0 items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+  "flex min-h-11 min-w-0 items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 const activeCls = "bg-accent text-foreground";
 
 function GuildLayout() {
   const guild = Route.useLoaderData();
   const { guildId } = Route.useParams();
+
   return (
-    <div className="mx-auto grid min-w-0 max-w-6xl grid-cols-[minmax(0,1fr)] gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:grid-cols-[240px_minmax(0,1fr)]">
-      <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
-        <Link
-          to="/dashboard"
-          className="mb-4 inline-flex min-h-11 items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground lg:min-h-0"
-        >
-          <ArrowRight className="size-3.5" />
-          جميع الخوادم
-        </Link>
-        <div className="mb-4 rounded-xl border border-border bg-panel p-4">
-          <p dir="auto" className="font-semibold">
-            {guild.name}
-          </p>
-          <div className="mt-2">
-            <BotStatusBadge status={guild.botStatus} />
+    <div className="mx-auto min-w-0 max-w-6xl px-4 py-5 sm:px-6 sm:py-7">
+      <header className="mb-6 flex min-w-0 items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-3">
+          <Link
+            to="/dashboard"
+            aria-label="العودة إلى قائمة الخوادم"
+            className="grid size-10 shrink-0 place-items-center rounded-lg border border-border bg-panel text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <ArrowRight className="size-4" />
+          </Link>
+          <div className="min-w-0">
+            <p dir="auto" className="truncate text-sm font-semibold sm:text-base">
+              {guild.name}
+            </p>
+            <div className="mt-1">
+              <BotStatusBadge status={guild.botStatus} />
+            </div>
           </div>
         </div>
-        <nav
-          aria-label="أنظمة الخادم"
-          className="grid min-w-0 grid-cols-2 gap-1 pb-2 sm:grid-cols-3 lg:flex lg:flex-col"
-        >
-          <Link
-            to="/dashboard/$guildId"
-            params={{ guildId }}
-            activeOptions={{ exact: true }}
-            className={navCls}
-            activeProps={{ className: activeCls }}
-          >
-            <LayoutGrid className="size-4 shrink-0" />
-            نظرة عامة
-          </Link>
-          {SYSTEMS.map(({ slug, name, icon: Icon }) => (
-            <Link
-              key={slug}
-              to="/dashboard/$guildId/$system"
-              params={{ guildId, system: slug }}
-              className={navCls}
-              activeProps={{ className: activeCls }}
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <button
+              type="button"
+              aria-label="فتح قائمة الأنظمة"
+              className="grid size-10 shrink-0 place-items-center rounded-lg border border-border bg-panel text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <Icon className="size-4 shrink-0" />
-              <span className="min-w-0 flex-1">{name}</span>
-              <span className="hidden lg:inline">
-                <SoonBadge />
-              </span>
-            </Link>
-          ))}
-        </nav>
-      </aside>
+              <Menu className="size-5" aria-hidden />
+            </button>
+          </SheetTrigger>
+          <SheetContent
+            side="right"
+            dir="rtl"
+            className="w-[min(86vw,20rem)] overflow-y-auto border-l border-border bg-background p-5"
+          >
+            <SheetHeader className="mb-6 text-right sm:text-right">
+              <SheetTitle>قائمة أنظمة الخادم</SheetTitle>
+              <SheetDescription>انتقل إلى النظام الذي تريد إدارته.</SheetDescription>
+            </SheetHeader>
+
+            <nav aria-label="أنظمة الخادم" className="flex min-w-0 flex-col gap-1">
+              <SheetClose asChild>
+                <Link
+                  to="/dashboard/$guildId"
+                  params={{ guildId }}
+                  activeOptions={{ exact: true }}
+                  className={navCls}
+                  activeProps={{ className: activeCls }}
+                >
+                  <LayoutGrid className="size-4 shrink-0" />
+                  <span className="min-w-0 flex-1">نظرة عامة</span>
+                </Link>
+              </SheetClose>
+              {SYSTEMS.map(({ slug, name, icon: Icon }) => (
+                <SheetClose asChild key={slug}>
+                  <Link
+                    to="/dashboard/$guildId/$system"
+                    params={{ guildId, system: slug }}
+                    className={navCls}
+                    activeProps={{ className: activeCls }}
+                  >
+                    <Icon className="size-4 shrink-0" />
+                    <span className="min-w-0 flex-1">{name}</span>
+                    <SoonBadge />
+                  </Link>
+                </SheetClose>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </header>
+
       <section className="min-w-0">
         <Outlet />
       </section>
