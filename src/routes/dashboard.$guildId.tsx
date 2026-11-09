@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { ArrowRight, LayoutGrid, Menu, ShieldX } from "lucide-react";
-import { BotStatusBadge, PendingState, SoonBadge } from "@/components/dashboard/dashboard-ui";
+import { AvailableBadge, BotStatusBadge, PendingState, SoonBadge } from "@/components/dashboard/dashboard-ui";
 import { StatePanel } from "@/components/site/site-chrome";
 import { Button } from "@/components/ui/button";
 import {
@@ -111,7 +111,7 @@ function GuildLayout() {
                   <span className="min-w-0 flex-1">نظرة عامة</span>
                 </Link>
               </SheetClose>
-              {SYSTEMS.map(({ slug, name, icon: Icon }) => (
+              {SYSTEMS.map(({ slug, name, icon: Icon, status }) => (
                 <SheetClose asChild key={slug}>
                   <Link
                     to="/dashboard/$guildId/$system"
@@ -121,7 +121,7 @@ function GuildLayout() {
                   >
                     <Icon className="size-4 shrink-0" />
                     <span className="min-w-0 flex-1">{name}</span>
-                    <SoonBadge />
+                    {status === "available" ? <AvailableBadge /> : <SoonBadge />}
                   </Link>
                 </SheetClose>
               ))}
