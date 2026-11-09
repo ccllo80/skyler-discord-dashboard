@@ -33,7 +33,11 @@ export const saveWelcomeSettings = createServerFn({ method: "POST" })
 
 export const sendWelcomeTest = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) =>
-    z.object({ guildId: guildIdSchema, kind: z.enum(["welcome", "leave"]) }).parse(data),
+    z.object({
+      guildId: guildIdSchema,
+      kind: z.enum(["welcome", "leave"]),
+      settings: settingsSchema,
+    }).parse(data),
   )
   .handler(async ({ data }) => {
     await getGuildAccess({ data: { guildId: data.guildId } });
