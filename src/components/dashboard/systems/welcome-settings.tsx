@@ -91,7 +91,7 @@ function WelcomeEditor({
     setTesting(kind);
     setFeedback(null);
     try {
-      const result = await sendWelcomeTest({ data: { guildId, kind } });
+      const result = await sendWelcomeTest({ data: { guildId, kind, settings } });
       setFeedback(
         result.ok
           ? { kind: "success", message: "تم إرسال رسالة الاختبار إلى القناة المحددة." }
