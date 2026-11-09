@@ -38,5 +38,5 @@ export const sendWelcomeTest = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     await getGuildAccess({ data: { guildId: data.guildId } });
     const { sendWelcomeTest: sendTest } = await import("@/server/bot/welcome");
-    return sendTest(data.guildId, data.kind);
+    return sendTest(data.guildId, data.kind, data.settings as WelcomeSettings);
   });
