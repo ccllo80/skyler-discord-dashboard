@@ -62,3 +62,15 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+
+## Private bot API integration
+
+The welcome system reads and saves settings through the bot's private HTTP API. Configure these values in the dashboard server environment (never in browser-exposed variables):
+
+- `SKYLER_API_BASE_URL`: the HTTPS base URL exposed by the running SKYLER bot service.
+- `SKYLER_API_SECRET`: the same random secret configured as `SKYLER_API_SECRET` on the bot host (at least 32 characters).
+
+The dashboard calls this API only from authenticated server functions. Every settings read, save, and test request re-checks the signed-in user's permission to manage the selected Discord server. The bot independently checks its membership and its ability to send messages in selected channels.
+
+The bot host must retain its `data/` directory for welcome settings to survive restarts. Back it up before changing or resetting the host.

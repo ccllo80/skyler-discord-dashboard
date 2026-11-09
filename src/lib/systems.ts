@@ -20,14 +20,13 @@ export interface DashboardSystem {
   status: SystemStatus;
 }
 
-// Every system is "soon" until the bot API integration exists.
 export const SYSTEMS: DashboardSystem[] = [
   {
     slug: "welcome",
     name: "الترحيب",
     description: "رسائل ترحيب ووداع مخصصة للأعضاء الجدد والمغادرين.",
     icon: Hand,
-    status: "soon",
+    status: "available",
   },
   {
     slug: "levels",
