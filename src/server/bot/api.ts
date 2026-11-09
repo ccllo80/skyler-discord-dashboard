@@ -6,7 +6,7 @@ export async function requestBotApi<T>(
   init: RequestInit = {},
 ): Promise<BotApiResult<T>> {
   const cfg = getDiscordConfig();
-  if (!cfg.ok || !cfg.config.apiBaseUrl || !cfg.config.apiSecret) {
+  if (!cfg.ok || !cfg.config.apiBaseUrl || !cfg.config.apiSecret || cfg.config.apiSecret.length < 32) {
     return {
       ok: false,
       reason: "not_configured",
